@@ -1,9 +1,0 @@
-{
-    "dev": {
-      "driver": "pg",
-      "user": "postgres",
-      "password": "4444love",
-      "host": "localhost",
-      "database": "migrationdb"
-    }
-  }

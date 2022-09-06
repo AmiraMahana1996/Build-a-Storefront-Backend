@@ -1,12 +1,9 @@
 import { Request, Response, Router } from 'express';
 import { validationMiddelware } from '../middlewares/validation.middleware';
 
-
-import cacheMiddleware from '../middlewares/cacge.middleware';
-
 const router = Router();
 
-// server side routes
+
 
 
 // call handel

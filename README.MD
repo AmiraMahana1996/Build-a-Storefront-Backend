@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Build a Storefront Backendprocessing Image 👋</h1>
+<h1 align="center">Welcome Pos insert algorithim   👋</h1>
 <p>
   <a href="https://www.npmjs.com/package/processing Image" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/processing Image.svg">
@@ -12,7 +12,7 @@
 
 ### ✨ [Demo](localhost:3000)
 
-## Install
+## insert
 
 ```sh
 npm install --save
@@ -41,14 +41,14 @@ npm run lint
 ```sh
 npm run format
 ```
+
 ## Build project
 
 ```sh
 npm run build
 ```
 
-## to compile typescript files 
-
+## to compile typescript files
 
 ```sh
 npm run compile-typescript
@@ -56,20 +56,19 @@ npm run compile-typescript
 
 ## The Endpoints of the project
 
+```sh
+working on it
+```
+
+## To migrate
 
 ```sh
 working on it
 ```
 
-
-
 ## Author
 
 👤 **Amira**
 
-* Website: Amira
-* Github: [@AmiraMahana1996](https://github.com/AmiraMahana1996)
-
-
-
-
+- Website: Amira
+- Github: [@AmiraMahana1996](https://github.com/AmiraMahana1996)
