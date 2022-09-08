@@ -60,10 +60,16 @@ npm run compile-typescript
 working on it
 ```
 
+## To create a new table
+
+```sh
+db-migrate create products --sql-file
+```
+
 ## To migrate
 
 ```sh
-working on it
+db-migrate up
 ```
 
 ## Author
