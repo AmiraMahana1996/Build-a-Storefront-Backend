@@ -63,7 +63,16 @@ class Handler {
     }
   }
 
-
+  static async getProductsByCategory(req: express.Request, res: express.Response) {
+    try {
+      console.log(`${req.body}`)
+      const products = await ProdutService.getProductsByCategory(req.params.id as string)
+      res.status(200).send(products);
+    } catch (err) {
+      const error = err as Error;
+      console.log(`delete error: ${error}`);
+    }
+  }
 
 
   initializeRoutes() {
@@ -72,6 +81,7 @@ class Handler {
     this.router.get(`${this.path}/show/:id`, Handler.show);
     this.router.put(`${this.path}/update/:id`, Handler.update);
     this.router.delete(`${this.path}/delete/:id`, Handler.delete);
+    this.router.get(`${this.path}/by-category-id/:id`, Handler.getProductsByCategory);
 
 
   }

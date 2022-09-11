@@ -72,6 +72,12 @@ db-migrate create products --sql-file
 db-migrate up
 ```
 
+//
+CREATE SEQUENCE categories_id_seq;
+
+ALTER TABLE categories
+ALTER COLUMN category_id SET DEFAULT nextval('categories_id_seq');
+
 ## Author
 
 👤 **Amira**

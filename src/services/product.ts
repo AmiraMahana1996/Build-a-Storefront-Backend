@@ -61,10 +61,10 @@ class ProductService {
         }
     }
 
-    static async getProductsByCategory(id: number): Promise<IProduct[]> {
+    static async getProductsByCategory(id: string): Promise<IProduct[]> {
         try {
             const connection = await Client.connect();
-            const sql = 'SELECT	* FROM products INNER JOIN categories USING (category_id)';
+            const sql = 'SELECT *FROM products p JOIN categories c ON c.id = p.category_id WHERE c.id = $1';
             const result = await connection.query(sql, [id]);
             connection.release();
             return result.rows;
