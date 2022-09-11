@@ -1,6 +1,13 @@
 import Router from 'express';
 // import { validationMiddelware } from '../middlewares/validation.middleware';
-import { index, show, update, delete_, getByCategoryId, create } from '../handlers/product'
+import {
+  index,
+  show,
+  update,
+  delete_,
+  getByCategoryId,
+  create,
+} from '../handlers/product';
 const productRouter = Router();
 
 productRouter.get('/all', index);
