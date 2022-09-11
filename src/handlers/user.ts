@@ -2,8 +2,10 @@ import express from 'express';
 import UserService from '../services/user';
 import IUser from '../interfaces/User';
 import bcrypt from 'bcryptjs';
+import JWT from 'jsonwebtoken';
 class Handler {
   path: string;
+
   router: express.Router;
   constructor() {
     this.path = '/users';
@@ -26,9 +28,18 @@ class Handler {
     bcrypt.hash(req.body.password, 10).then(async (hash) => {
       try {
         req.body.password = hash;
+        const jwtSecret = "ad5b0c9ce12b6a9f52736c31a31906fca0abe6ecabd7078e21db3cd8df795a90413204"
+        const expirationTime = 3 * 60 * 60; //3hours
+        const token = JWT.sign(req.body, jwtSecret,
+          {
+            expiresIn: expirationTime, // 3hrs in sec
+          }
+        );
+
+
         console.log(`${req.body}`);
-        const user = await UserService.create(req.body as IUser);
-        res.status(200).send(user);
+        const user = await UserService.create(req.body as IUser, token as string);
+        res.status(200).send(token);
       } catch (err) {
         const error = err as Error;
         console.log(`create error: ${error}`);

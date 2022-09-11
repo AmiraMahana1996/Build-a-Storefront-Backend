@@ -25,15 +25,16 @@ class UserService {
       throw new Error(`Cann't show users : ${e}`);
     }
   }
-  static async create(user: IUser): Promise<IUser> {
+  static async create(user: IUser, token: string): Promise<IUser> {
     try {
       const connection = await Client.connect();
       const sql =
-        'INSERT INTO users (firstname,lastname,password)VALUES( $1,$2,$3) RETURNING *;';
+        'INSERT INTO users (firstname,lastname,password,token)VALUES( $1,$2,$3,$4) RETURNING *;';
       const result = await connection.query(sql, [
         user.firstname,
         user.lastname,
         user.password,
+        token
       ]);
       connection.release();
       return result.rows[0];
