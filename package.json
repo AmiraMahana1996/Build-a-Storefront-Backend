@@ -64,6 +64,7 @@
   "dependencies": {
     "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "db-migrate": "^0.11.13",
