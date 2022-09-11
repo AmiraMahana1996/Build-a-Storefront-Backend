@@ -7,9 +7,9 @@ interface IOrder {
 }
 export default IOrder;
 
-//order 
+//order
 //insert order item //product_id product_qty user_id
 //create user
 //هل لازم اعمل ال login and register
-// get current order or completed order 
+// get current order or completed order
 //لازم اعمل create order

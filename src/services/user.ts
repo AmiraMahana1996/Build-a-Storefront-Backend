@@ -2,8 +2,6 @@ import Client from '../config/Client';
 import IUser from '../interfaces/User';
 
 class UserService {
-
-
   static async index(): Promise<IUser[]> {
     try {
       const connection = await Client.connect();
@@ -27,7 +25,7 @@ class UserService {
       throw new Error(`Cann't show users : ${e}`);
     }
   }
-  static async register(user: IUser,): Promise<IUser> {
+  static async register(user: IUser): Promise<IUser> {
     try {
       const connection = await Client.connect();
       const sql =

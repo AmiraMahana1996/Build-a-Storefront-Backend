@@ -1,8 +1,8 @@
-
 import dotenv from 'dotenv';
 
 dotenv.config();
-const { POSTGRES_HOST,
+const {
+  POSTGRES_HOST,
   POSTGRES_DB,
   POSTGRES_PASSWORD,
   POSTGRES_USER,
@@ -10,11 +10,8 @@ const { POSTGRES_HOST,
   SALT_ROUND,
   PEPPER,
   TOKEN_SECRET,
-  PORT
-} =
-  process.env;
-
-
+  PORT,
+} = process.env;
 
 export default {
   port: PORT,
@@ -25,6 +22,5 @@ export default {
   secretToken: TOKEN_SECRET,
   postgresPort: POSTGRES_PORT,
   postgresPassword: POSTGRES_PASSWORD,
-  DB: POSTGRES_DB
-}
-
+  DB: POSTGRES_DB,
+};

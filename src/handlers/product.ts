@@ -16,7 +16,7 @@ class Handler {
       res.status(200).json({
         status: 200,
         message: 'success',
-        data: products
+        data: products,
       });
     } catch (err) {
       const error = err as Error;
@@ -42,7 +42,7 @@ class Handler {
       res.status(200).json({
         status: 200,
         message: 'success',
-        data: product
+        data: product,
       });
     } catch (err) {
       const error = err as Error;
