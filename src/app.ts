@@ -7,11 +7,11 @@ import bodyParser from 'body-parser';
 dotenv.config();
 class App {
     app: express.Application;
-    constructor(controllers: Array<any>) {
+    constructor(handlers: Array<unknown>) {
         this.app = express();
         Client.connect();
         this.initializeMiddleWares();
-        this.initializeControllers(controllers);
+        this.initializeControllers(handlers);
 
     }
 
@@ -30,9 +30,9 @@ class App {
         this.app.use(bodyParser.urlencoded({ extended: false }));
     }
 
-    initializeControllers(controllers) {
-        controllers.forEach((controller) => {
-            this.app.use('/', controller.router);
+    initializeControllers(handlers) {
+        handlers.forEach((handlers) => {
+            this.app.use('/', handlers.router);
         });
     }
 

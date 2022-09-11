@@ -16,7 +16,7 @@ class ProductService {
 
     }
 
-    static async show(id: number): Promise<IProduct[]> {
+    static async show(id: string): Promise<IProduct[]> {
         try {
             const connection = await Client.connect();
             const sql = 'SELECT * FROM products WHERE id = ($1)';
@@ -38,7 +38,7 @@ class ProductService {
             throw new Error(`Cann't create product : ${e}`);
         }
     }
-    static async update(id: number, product: IProduct): Promise<IProduct> {
+    static async update(id: string, product: IProduct): Promise<IProduct> {
         try {
             const connection = await Client.connect();
             const sql = 'UPDATE products SET name=$1,price=$2,category_id=$3 WHERE id=$4';
@@ -49,7 +49,7 @@ class ProductService {
             throw new Error(`Cann't update product : ${e}`);
         }
     }
-    static async delete(id: number): Promise<IProduct[]> {
+    static async delete(id: string): Promise<IProduct[]> {
         try {
             const connection = await Client.connect();
             const sql = 'DELETE FROM products WHERE id = $1';
