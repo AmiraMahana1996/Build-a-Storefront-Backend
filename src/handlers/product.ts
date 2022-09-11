@@ -13,7 +13,11 @@ class Handler {
   static async index(req: express.Request, res: express.Response) {
     try {
       const products = await ProdutService.index();
-      res.status(200).send(products);
+      res.status(200).json({
+        status: 200,
+        message: 'success',
+        data: products
+      });
     } catch (err) {
       const error = err as Error;
       console.log(`index error: ${error}`);
@@ -35,7 +39,11 @@ class Handler {
     try {
       console.log(`${req.body}`);
       const product = await ProdutService.show(req.params.id as string);
-      res.status(200).send(product);
+      res.status(200).json({
+        status: 200,
+        message: 'success',
+        data: product
+      });
     } catch (err) {
       const error = err as Error;
       console.log(`create error: ${error}`);

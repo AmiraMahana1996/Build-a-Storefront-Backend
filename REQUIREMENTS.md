@@ -9,27 +9,172 @@ These are the notes from a meeting with the frontend developer that describe wha
 #### Products
 
 - Index
+
+```sh
+get all products
+
+-endpoint
+GET /products/all
+
+-example:
+{
+    "status": 200,
+    "message": "success",
+    "data": [
+        {
+            "id": 1,
+            "name": "potato",
+            "price": 52,
+            "category_id": 2
+        },
+    ]
+}
+```
+
 - Show (args: product id)
+
+```sh
+get one product
+
+-endpoint
+GET /products/show/1
+
+-example:
+{
+    "status": 200,
+    "message": "success",
+    "data":{
+            "id": 1,
+            "name": "potato",
+            "price": 52,
+            "category_id": 2
+        },
+}
+```
+
 - Create (args: Product)[token required]
-- Top 5 most popular products
+
+```sh
+create  product
+
+-endpoint
+POST /products/create
+
+-example:
+{
+    "status": 200,
+    "message": "success",
+    "data":{
+            "id": 1,
+            "name": "potato",
+            "price": 52,
+            "category_id": 2
+        },
+}
+
+```
+
 - Products by category (args: product category)
+
+```sh
+get products by category_id
+
+-endpoint
+GET /products/get_by_category_id/1
+
+-example:
+{
+    "status": 200,
+    "message": "success",
+    "data":[{
+            "id": 1,
+            "name": "potato",
+            "price": 52,
+            "category_id": 2
+        }],
+}
+
+```
 
 #### Users
 
 - Index [token required]
+
+```sh
+get all users
+
+-endpoint
+GET /users/all
+
+-example:
+{
+    "status": 200,
+    "message": "success",
+    "data":[{
+            "id": 1,
+            "firstname": "potato",
+            "lastname": 52,
+            "email": "user@example.com",
+            "password": "123456",
+        }],
+}
+```
+
 - Show (args: id)[token required]
+
+```sh
+show user
+
+-endpoint
+GET users/show/1
+
+-example:
+{
+    "status": 200,
+    "message": "success",
+    "data":{
+            "id": 1,
+            "firstname": "potato",
+            "lastname": 52,
+            "email": "user@example.com",
+            "password": "123456",
+        },
+}
+```
+
 - Create (args: User)[token required]
+
+```sh
+show user
+
+-endpoint
+POST users/create
+-posted data example
+{
+            "firstname": "potato",
+            "lastname": 52,
+            "email": "user@example.com",
+            "password": "123456",
+        }
+-returned data example:
+{
+    "status": 200,
+    "message": "success",
+    "data":{
+            "id": 1,
+            "firstname": "potato",
+            "lastname": 52,
+            "email": "user@example.com",
+            "password": "123456",
+        },
+}
+```
 
 #### Orders
 
 - Current Order by user (args: user id)[token required]
+
 - Completed Orders by user (args: user id)[token required]
-
-#### Stock
-
-- Current Stock for product (args: user id,product id)[token required]
-- Current Stock for all product (args: user id,product id)[token required]
-- create stock for product (args:user,product id,quantity)
 
 ## Data Shapes
 

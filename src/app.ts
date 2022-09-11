@@ -1,7 +1,9 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import Client from './config/config';
+import Config from './config/config';
+import Client from './config/Client';
+
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 dotenv.config();
@@ -15,8 +17,8 @@ class App {
   }
 
   listen() {
-    this.app.listen(3000, () => {
-      logger.compile(`App listening on the port ${3000}`);
+    this.app.listen(Config.port, () => {
+      logger.compile(`App listening on the port ${Config.port}`);
     });
   }
 

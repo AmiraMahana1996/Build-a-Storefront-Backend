@@ -1,4 +1,4 @@
-import Client from '../config/config';
+import Client from '../config/Client';
 import ICategory from '../interfaces/category';
 class CategoryService {
   static async index(): Promise<ICategory[]> {

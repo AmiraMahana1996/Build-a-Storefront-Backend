@@ -1,4 +1,4 @@
-import Client from '../config/config';
+import Client from '../config/Client';
 import IProduct from '../interfaces/Product';
 class ProductService {
   static async index(): Promise<IProduct[]> {

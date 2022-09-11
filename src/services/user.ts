@@ -1,7 +1,9 @@
-import Client from '../config/config';
+import Client from '../config/Client';
 import IUser from '../interfaces/User';
 
 class UserService {
+
+
   static async index(): Promise<IUser[]> {
     try {
       const connection = await Client.connect();
@@ -25,21 +27,32 @@ class UserService {
       throw new Error(`Cann't show users : ${e}`);
     }
   }
-  static async create(user: IUser, token: string): Promise<IUser> {
+  static async register(user: IUser,): Promise<IUser> {
     try {
       const connection = await Client.connect();
       const sql =
-        'INSERT INTO users (firstname,lastname,password,token)VALUES( $1,$2,$3,$4) RETURNING *;';
+        'INSERT INTO users (firstname,lastname,password,email)VALUES( $1,$2,$3,$4) RETURNING *;';
       const result = await connection.query(sql, [
         user.firstname,
         user.lastname,
         user.password,
-        token
+        user.email,
       ]);
       connection.release();
       return result.rows[0];
     } catch (e) {
       throw new Error(`Cann't create user : ${e}`);
+    }
+  }
+  static async login(user: IUser): Promise<IUser> {
+    try {
+      const connection = await Client.connect();
+      const sql = 'SELECT * FROM users WHERE id = $1';
+      const result = await connection.query(sql, [user.id]);
+      connection.release();
+      return result.rows[0];
+    } catch (e) {
+      throw new Error(`Cann't delete product : ${e}`);
     }
   }
 }

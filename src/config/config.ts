@@ -1,18 +1,30 @@
-import { Pool } from 'pg';
+
 import dotenv from 'dotenv';
 
 dotenv.config();
-const { POSTGRES_HOST, POSTGRES_DB, POSTGRES_PASSWORD, POSTGRES_USER } =
+const { POSTGRES_HOST,
+  POSTGRES_DB,
+  POSTGRES_PASSWORD,
+  POSTGRES_USER,
+  POSTGRES_PORT,
+  SALT_ROUND,
+  PEPPER,
+  TOKEN_SECRET,
+  PORT
+} =
   process.env;
 
-let client = new Pool({});
 
-client = new Pool({
-  host: POSTGRES_HOST,
-  database: POSTGRES_DB,
+
+export default {
+  port: PORT,
   user: POSTGRES_USER,
-  password: POSTGRES_PASSWORD,
-  port: 5432,
-});
+  host: POSTGRES_HOST,
+  salt: SALT_ROUND,
+  pepper: PEPPER,
+  secretToken: TOKEN_SECRET,
+  postgresPort: POSTGRES_PORT,
+  postgresPassword: POSTGRES_PASSWORD,
+  DB: POSTGRES_DB
+}
 
-export default client;
