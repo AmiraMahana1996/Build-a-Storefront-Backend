@@ -19,26 +19,28 @@ class OrderService {
       throw new Error(`Cann't create order : ${e}`);
     }
   }
-  static async getCurrentOrders(userID: string): Promise<IOrder> {
+  static async getCurrentOrders(userID: string): Promise<IOrder[]> {
     try {
+      const status = "active";
       const connection = await Client.connect();
       const sql =
-        'SELECT * FROM orders WHERE user_id = $1 AND status = "active"';
-      const result = await connection.query(sql, [userID]);
+        'SELECT * FROM orders WHERE user_id = $1 AND status = $2';
+      const result = await connection.query(sql, [userID, status]);
       connection.release();
-      return result.rows[0];
+      return result.rows;
     } catch (e) {
       throw new Error(`Cann't create order : ${e}`);
     }
   }
-  static async getCompleteOrders(userID: string): Promise<IOrder> {
+  static async getCompleteOrders(userID: string): Promise<IOrder[]> {
     try {
+      const status = "complete";
       const connection = await Client.connect();
       const sql =
-        'SELECT * FROM orders WHERE user_id = $1 AND status = "complete"';
-      const result = await connection.query(sql, [userID]);
+        'SELECT * FROM orders WHERE user_id = $1 AND status = $2';
+      const result = await connection.query(sql, [userID, status]);
       connection.release();
-      return result.rows[0];
+      return result.rows;
     } catch (e) {
       throw new Error(`Cann't create order : ${e}`);
     }

@@ -176,6 +176,28 @@ POST users/create
 
 - Completed Orders by user (args: user id)[token required]
 
+```sh
+show completed orders by user id
+
+-endpoint
+GET /orders/complete/2
+
+-returned data example:
+{
+    "status": 200,
+    "message": "success",
+    "data": [
+        {
+            "id": 3,
+            "product_id": 1,
+            "product_qty": 20,
+            "user_id": 2,
+            "status": "complete"
+        }
+    ]
+}
+```
+
 ## Data Shapes
 
 #### Product
