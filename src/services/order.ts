@@ -2,7 +2,6 @@ import Client from '../config/Client';
 import IOrder from '../interfaces/Order';
 
 class OrderService {
-
   static async create(order: IOrder): Promise<IOrder> {
     try {
       const connection = await Client.connect();
@@ -25,9 +24,7 @@ class OrderService {
       const connection = await Client.connect();
       const sql =
         'SELECT * FROM orders WHERE user_id = $1 AND status = "active"';
-      const result = await connection.query(sql, [
-        userID
-      ]);
+      const result = await connection.query(sql, [userID]);
       connection.release();
       return result.rows[0];
     } catch (e) {
@@ -39,9 +36,7 @@ class OrderService {
       const connection = await Client.connect();
       const sql =
         'SELECT * FROM orders WHERE user_id = $1 AND status = "complete"';
-      const result = await connection.query(sql, [
-        userID
-      ]);
+      const result = await connection.query(sql, [userID]);
       connection.release();
       return result.rows[0];
     } catch (e) {

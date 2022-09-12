@@ -3,7 +3,7 @@ import UserService from '../services/user';
 import IUser from '../interfaces/User';
 import bcrypt from 'bcryptjs';
 import JWT from 'jsonwebtoken';
-import hashPasseord from '../helpers/encryption'
+import hashPasseord from '../helpers/encryption';
 class Handler {
   path: string;
 
@@ -41,10 +41,7 @@ class Handler {
     try {
       const user = await UserService.login(req.body as IUser);
 
-
       res.status(200).send(user);
-
-
     } catch (err) {
       const error = err as Error;
       console.log(`create error: ${error}`);
