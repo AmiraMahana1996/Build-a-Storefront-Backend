@@ -1,5 +1,5 @@
 interface IOrder {
-  id: number;
+  id?: number;
   product_id: number;
   product_qty: number;
   user_id: number;

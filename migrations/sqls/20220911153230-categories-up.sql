@@ -4,9 +4,8 @@
 
 CREATE TABLE IF NOT EXISTS public.categories
 (
-    id integer NOT NULL DEFAULT nextval('categories_id'::regclass),
-    name character(255) COLLATE pg_catalog."default",
-    CONSTRAINT categories_pkey PRIMARY KEY (id)
+    id SERIAL PRIMARY KEY,
+    name character(255) COLLATE pg_catalog."default"
 )
 
 TABLESPACE pg_default;

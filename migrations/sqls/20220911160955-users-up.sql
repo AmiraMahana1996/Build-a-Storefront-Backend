@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS public.users
     firstname character(255) COLLATE pg_catalog."default",
     lastname character(255) COLLATE pg_catalog."default",
     password character(255) COLLATE pg_catalog."default",
-    token text COLLATE pg_catalog."default"
+    email character(255) COLLATE pg_catalog."default"
+ 
 )
 
 TABLESPACE pg_default;
