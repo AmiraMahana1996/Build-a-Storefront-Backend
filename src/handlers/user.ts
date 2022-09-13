@@ -2,8 +2,8 @@ import express from 'express';
 import UserService from '../services/user';
 import IUser from '../interfaces/User';
 import JWT from 'jsonwebtoken';
-import passwordVerification from '../helpers/verification'
-import encryptPassword from '../helpers/encryption'
+import passwordVerification from '../helpers/verification';
+import encryptPassword from '../helpers/encryption';
 import logger from '../helpers/logger';
 import { request } from 'http';
 class Handler {
@@ -29,9 +29,9 @@ class Handler {
   static async register(req: express.Request, res: express.Response) {
     try {
       const hashed = await encryptPassword(req.body.password);
-      req.body.password = hashed
-      logger.info(req.body.password)
-      logger.info(hashed)
+      req.body.password = hashed;
+      logger.info(req.body.password);
+      logger.info(hashed);
 
       const user = await UserService.register(req.body as IUser);
       res.status(200).send(user);
@@ -41,20 +41,20 @@ class Handler {
     }
   }
 
-
-  static async login(req: express.Request, res: express.Response): Promise<void> {
+  static async login(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
     try {
-      const user = await UserService.login(req.body.email as string)
+      const user = await UserService.login(req.body.email as string);
       logger.info(user.password);
       //verify password
-      const isValid = await passwordVerification(user.password, req.body.password)
+      const isValid = await passwordVerification(
+        user.password,
+        req.body.password
+      );
 
       logger.info(`invalid: ${isValid}`);
-
-
-
-
-
     } catch (err) {
       const error = err as Error;
       console.log(`create error: ${error}`);

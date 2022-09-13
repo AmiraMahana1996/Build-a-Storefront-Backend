@@ -1,6 +1,6 @@
 import Client from '../config/Client';
 import IOrder from '../interfaces/Order';
-import removeSpaces from '../helpers/removeSpaces'
+import removeSpaces from '../helpers/removeSpaces';
 class OrderService {
   static async create(order: IOrder): Promise<IOrder> {
     try {
@@ -21,10 +21,9 @@ class OrderService {
   }
   static async getCurrentOrders(userID: string): Promise<IOrder[]> {
     try {
-      const status = "active";
+      const status = 'active';
       const connection = await Client.connect();
-      const sql =
-        'SELECT * FROM orders WHERE user_id = $1 AND status = $2';
+      const sql = 'SELECT * FROM orders WHERE user_id = $1 AND status = $2';
       const result = await connection.query(sql, [userID, status]);
       connection.release();
       return result.rows;
@@ -34,10 +33,9 @@ class OrderService {
   }
   static async getCompleteOrders(userID: string): Promise<IOrder[]> {
     try {
-      const status = "complete";
+      const status = 'complete';
       const connection = await Client.connect();
-      const sql =
-        'SELECT * FROM orders WHERE user_id = $1 AND status = $2';
+      const sql = 'SELECT * FROM orders WHERE user_id = $1 AND status = $2';
       const result = await connection.query(sql, [userID, status]);
       connection.release();
       return result.rows;

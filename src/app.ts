@@ -38,7 +38,6 @@ class App {
       this.app.use('/', handlers.router);
     });
   }
-
 }
 
 export default App;

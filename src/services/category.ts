@@ -1,6 +1,6 @@
 import Client from '../config/Client';
 import ICategory from '../interfaces/category';
-import removeSpaces from '../helpers/removeSpaces'
+import removeSpaces from '../helpers/removeSpaces';
 class CategoryService {
   static async index(): Promise<ICategory[]> {
     try {
@@ -40,7 +40,10 @@ class CategoryService {
     try {
       const connection = await Client.connect();
       const sql = 'UPDATE categories SET name=$1 WHERE id=$2';
-      const result = await connection.query(sql, [removeSpaces(category.name), id]);
+      const result = await connection.query(sql, [
+        removeSpaces(category.name),
+        id,
+      ]);
       connection.release();
       return result.rows[0];
     } catch (e) {

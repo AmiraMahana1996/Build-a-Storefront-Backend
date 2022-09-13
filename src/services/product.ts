@@ -1,6 +1,6 @@
 import Client from '../config/Client';
 import IProduct from '../interfaces/Product';
-import removeSpaces from '../helpers/removeSpaces'
+import removeSpaces from '../helpers/removeSpaces';
 class ProductService {
   static async index(): Promise<IProduct[]> {
     try {

@@ -1,6 +1,6 @@
 import Client from '../config/Client';
 import IUser from '../interfaces/User';
-import removeSpaces from '../helpers/removeSpaces'
+import removeSpaces from '../helpers/removeSpaces';
 class UserService {
   static async index(): Promise<IUser[]> {
     try {
@@ -27,7 +27,6 @@ class UserService {
   }
   static async register(user: IUser): Promise<IUser> {
     try {
-
       const connection = await Client.connect();
       const sql =
         'INSERT INTO users (firstname,lastname,password,email)VALUES( $1,$2,$3,$4) RETURNING *;';
@@ -35,7 +34,7 @@ class UserService {
         removeSpaces(user.firstname),
         removeSpaces(user.lastname),
         removeSpaces(user.password),
-        removeSpaces(user.email)
+        removeSpaces(user.email),
       ]);
       connection.release();
       return result.rows[0];
