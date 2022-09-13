@@ -1,5 +1,4 @@
 import * as argon2 from 'argon2';
-import logger from './logger';
 const passwordVerification = async (
   hashedPassword: string,
   password: string

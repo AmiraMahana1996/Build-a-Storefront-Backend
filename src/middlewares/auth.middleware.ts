@@ -1,6 +1,7 @@
 import express from 'express';
 import JWT from 'jsonwebtoken';
-export const authMiddelware = (
+import config from '../config/config';
+const authMiddelware = (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
@@ -9,10 +10,18 @@ export const authMiddelware = (
     const auth = req.get('Authorization');
     const bearer = auth?.split(' ')[0];
     const token = auth?.split(' ')[1];
-    if (bearer === 'bearer' && token) {
-      JWT.verify(token);
+    if (bearer === 'Bearer' && token) {
+      const payload = JWT.verify(token, config.secretToken);
+      if (payload) {
+        next();
+      } else {
+        console.log('user not authorized');
+      }
+    } else {
+      console.log('invalid token Bearer' + token);
     }
   } catch (err) {
     console.error(err);
   }
 };
+export default authMiddelware;

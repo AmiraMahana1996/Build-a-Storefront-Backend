@@ -6,6 +6,7 @@ import passwordVerification from '../helpers/verification';
 import encryptPassword from '../helpers/encryption';
 import logger from '../helpers/logger';
 import config from '../config/config';
+import authMiddelware from '../middlewares/auth.middleware';
 class Handler {
   path: string;
 
@@ -57,17 +58,20 @@ class Handler {
       if (user) {
         if (isValidPassword) {
           //assign token to logged user
-          const token = JWT.sign(user, config.secretToken)
-          localStorage.setItem(token, token)
+          const token = JWT.sign(user, config.secretToken);
+          localStorage.setItem(token, token);
           res.status(404).json({ status: 200, token: token });
-
-        } {
-          res.status(404).json({ status: 404, message: "your email or password invalid!" });
+        }
+        {
+          res
+            .status(404)
+            .json({ status: 404, message: 'your email or password invalid!' });
         }
       } else {
-        res.status(404).json({ status: 404, message: "your email doesn't exist!" });
+        res
+          .status(404)
+          .json({ status: 404, message: "your email doesn't exist!" });
       }
-
     } catch (err) {
       const error = err as Error;
       console.log(`create error: ${error}`);
@@ -86,9 +90,9 @@ class Handler {
   }
 
   initializeRoutes() {
-    this.router.get(`${this.path}/all`, Handler.index);
+    this.router.get(`${this.path}/all`, authMiddelware, Handler.index);
     this.router.post(`${this.path}/register`, Handler.register);
-    this.router.get(`${this.path}/show/:id`, Handler.show);
+    this.router.get(`${this.path}/show/:id`, authMiddelware, Handler.show);
     this.router.post(`${this.path}/login`, Handler.login);
   }
 }
