@@ -5,7 +5,7 @@ import JWT from 'jsonwebtoken';
 import passwordVerification from '../helpers/verification';
 import encryptPassword from '../helpers/encryption';
 import logger from '../helpers/logger';
-import { request } from 'http';
+import config from '../config/config';
 class Handler {
   path: string;
 
@@ -48,13 +48,26 @@ class Handler {
     try {
       const user = await UserService.login(req.body.email as string);
       logger.info(user.password);
+
       //verify password
-      const isValid = await passwordVerification(
+      const isValidPassword = await passwordVerification(
         user.password,
         req.body.password
       );
+      if (user) {
+        if (isValidPassword) {
+          //assign token to logged user
+          const token = JWT.sign(user, config.secretToken)
+          localStorage.setItem(token, token)
+          res.status(404).json({ status: 200, token: token });
 
-      logger.info(`invalid: ${isValid}`);
+        } {
+          res.status(404).json({ status: 404, message: "your email or password invalid!" });
+        }
+      } else {
+        res.status(404).json({ status: 404, message: "your email doesn't exist!" });
+      }
+
     } catch (err) {
       const error = err as Error;
       console.log(`create error: ${error}`);
