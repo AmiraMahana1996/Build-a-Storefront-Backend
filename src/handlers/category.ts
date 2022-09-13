@@ -11,7 +11,10 @@ class Handler {
     this.initializeRoutes();
   }
 
-  static async index(req: express.Request, res: express.Response): Promise<void> {
+  static async index(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
     try {
       const categories = await CategoryService.index();
       res.status(200).json({
@@ -25,7 +28,10 @@ class Handler {
     }
   }
 
-  static async create(req: express.Request, res: express.Response): Promise<void> {
+  static async create(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
     try {
       console.log(`${req.body}`);
       const category = await CategoryService.create(req.body as ICategory);
@@ -40,7 +46,10 @@ class Handler {
     }
   }
 
-  static async show(req: express.Request, res: express.Response): Promise<void> {
+  static async show(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
     try {
       console.log(`${req.body}`);
       const category = await CategoryService.show(req.params.id as string);
@@ -55,7 +64,10 @@ class Handler {
     }
   }
 
-  static async delete(req: express.Request, res: express.Response): Promise<void> {
+  static async delete(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
     try {
       console.log(`${req.body}`);
       const category = await CategoryService.delete(req.params.id as string);

@@ -11,7 +11,10 @@ class Handler {
     this.initializeRoutes();
   }
 
-  static async index(req: express.Request, res: express.Response): Promise<void> {
+  static async index(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
     try {
       const products = await ProdutService.index();
       res.status(200).json({
@@ -25,7 +28,10 @@ class Handler {
     }
   }
 
-  static async create(req: express.Request, res: express.Response): Promise<void> {
+  static async create(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
     try {
       console.log(`${req.body}`);
       const product = await ProdutService.create(req.body as IProduct);
@@ -40,7 +46,10 @@ class Handler {
     }
   }
 
-  static async show(req: express.Request, res: express.Response): Promise<void> {
+  static async show(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
     try {
       console.log(`${req.body}`);
       const product = await ProdutService.show(req.params.id as string);
@@ -54,7 +63,10 @@ class Handler {
       console.log(`create error: ${error}`);
     }
   }
-  static async update(req: express.Request, res: express.Response): Promise<void> {
+  static async update(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
     try {
       console.log(`${req.body}`);
       const product = await ProdutService.update(
@@ -72,7 +84,10 @@ class Handler {
     }
   }
 
-  static async delete(req: express.Request, res: express.Response): Promise<void> {
+  static async delete(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
     try {
       console.log(`${req.body}`);
       const product = await ProdutService.delete(req.params.id as string);
@@ -118,7 +133,8 @@ class Handler {
       Handler.delete
     );
     this.router.get(
-      `${this.path}/by-category-id/:id`, authMiddelware,
+      `${this.path}/by-category-id/:id`,
+      authMiddelware,
       Handler.getProductsByCategory
     );
   }
