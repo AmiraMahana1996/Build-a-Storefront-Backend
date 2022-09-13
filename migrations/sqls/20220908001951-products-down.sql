@@ -2,15 +2,5 @@
 
 -- DROP TABLE IF EXISTS public.products;
 
-DROP TABLE IF EXISTS public.products
-(
-    id SERIAL PRIMARY KEY,
-    name character(255) COLLATE pg_catalog."default",
-    price integer,
-    category_id integer
-)
+DROP TABLE IF EXISTS public.products;
 
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.products
-    OWNER to postgres;

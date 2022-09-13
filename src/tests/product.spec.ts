@@ -20,77 +20,10 @@ const app = new App([
 // create a request object
 supertest(app);
 
-// test resize request with name without width and height
-//product tests
-describe(' product api', () => {
-  it('test create method', async () => {
-    ProdutService.create({
-      name: 'mobile',
-      price: 2000,
-      category_id: 1,
-    }).then((result) => {
-      expect(result).toEqual({
-        id: 2,
-        name: 'mobile',
-        price: 2000,
-        category_id: 1,
-      });
-    });
-  });
-  it('test update method', async () => {
-    ProdutService.update('1', {
-      name: 'laptop',
-      price: 2000,
-      category_id: 1,
-    }).then((result) => {
-      expect(result).toEqual({
-        id: 1,
-        name: 'laptop',
-        price: 2000,
-        category_id: 1,
-      });
-    });
-  });
-  it('test show method', async () => {
-    ProdutService.show('1').then((result) => {
-      expect(result).toEqual({
-        id: 1,
-        name: 'laptop',
-        price: 2000,
-        category_id: 1,
-      });
-    });
-  });
-
-  it('test index method', async () => {
-    ProdutService.index().then((result) => {
-      expect(result).toEqual([
-        {
-          id: 1,
-          name: 'laptop',
-          price: 2000,
-          category_id: 1,
-        },
-      ]);
-    });
-  });
-
-  it('test getByCategoryId method', async () => {
-    ProdutService.getProductsByCategory('1').then((result) => {
-      expect(result).toEqual({
-        id: 1,
-        name: 'laptop',
-        price: 2000,
-        category_id: 1,
-      });
-    });
-  });
-});
-
 //test user api
 describe('user api', () => {
-  it('test create method', async () => {
-    UserService.register({
+  it('test create method', () => {
+    return UserService.register({
       firstname: 'amira',
       lastname: 'ali',
       email: 'ali@gmail.com',
@@ -100,59 +33,53 @@ describe('user api', () => {
         id: 1,
         firstname: 'amira',
         lastname: 'ali',
-        password:
-          '$argon2id$v=19$m=64000,t=3,p=1$MHqH9AWW7ZngVIvMjZHAoQ$PVX/37nGZwmTu+vY4PPUjLTsXJ6mlVKxlskX/SitCkc',
+        password: 'ali',
         email: 'ali@gmail.com',
       });
     });
   });
-  it('test login method', async () => {
-    UserService.login('ali@gmail.com', 'ali').then((result) => {
+  it('test login method', () => {
+    return UserService.login('ali@gmail.com', 'ali').then((result) => {
       expect(result).toEqual({
         id: 1,
         firstname: 'amira',
         lastname: 'ali',
-        password:
-          '$argon2id$v=19$m=64000,t=3,p=1$MHqH9AWW7ZngVIvMjZHAoQ$PVX/37nGZwmTu+vY4PPUjLTsXJ6mlVKxlskX/SitCkc',
+        password: 'ali',
         email: 'ali@gmail.com',
       });
     });
   });
-  it('test show method', async () => {
-    UserService.show('1').then((result) => {
+  it('test show method', () => {
+    return UserService.show('1').then((result) => {
       expect(result).toEqual({
         id: 1,
         firstname: 'amira',
         lastname: 'ali',
-        password:
-          '$argon2id$v=19$m=64000,t=3,p=1$MHqH9AWW7ZngVIvMjZHAoQ$PVX/37nGZwmTu+vY4PPUjLTsXJ6mlVKxlskX/SitCkc',
+        password: 'ali',
         email: 'ali@gmail.com',
       });
     });
   });
 
-  it('test index method', async () => {
-    UserService.index().then((result) => {
+  it('test index method', () => {
+    return UserService.index().then((result) => {
       expect(result).toEqual([
         {
-          id: 1,
-          firstname: 'amira',
-          lastname: 'ali',
-          password:
-            '$argon2id$v=19$m=64000,t=3,p=1$MHqH9AWW7ZngVIvMjZHAoQ$PVX/37nGZwmTu+vY4PPUjLTsXJ6mlVKxlskX/SitCkc',
-          email: 'ali@gmail.com',
+          id: result[0].id,
+          firstname: result[0].firstname,
+          lastname: result[0].lastname,
+          password: result[0].password,
+          email: result[0].email,
         },
       ]);
     });
   });
 });
 
-//test category api
-
 //category test api
 describe('category api', () => {
-  it('test create method', async () => {
-    categoryService
+  it('test create method', () => {
+    return categoryService
       .create({
         name: 'kids',
       })
@@ -164,8 +91,8 @@ describe('category api', () => {
       });
   });
 
-  it('test index method', async () => {
-    categoryService.index().then((result) => {
+  it('test index method', () => {
+    return categoryService.index().then((result) => {
       expect(result).toEqual([
         {
           id: 1,
@@ -175,74 +102,152 @@ describe('category api', () => {
     });
   });
 
-  it('test show method', async () => {
-    categoryService.show('1').then((result) => {
+  it('test show method', () => {
+    return categoryService.show('1').then((result) => {
       expect(result).toEqual({
         id: 1,
         name: 'kids',
       });
     });
   });
+});
 
-  it('test update method', async () => {
-    categoryService
-      .update('1', {
-        name: 'women',
-      })
+//product tests
+describe(' product api', () => {
+  it('test create method', () => {
+    return ProdutService.create({
+      name: 'mobile',
+      price: 2000,
+      category_id: 1,
+    })
       .then((result) => {
         expect(result).toEqual({
           id: 1,
-          name: 'women',
+          name: 'mobile',
+          price: 2000,
+          category_id: 1,
         });
+      })
+      .catch((reject) => {
+        console.log(reject);
       });
   });
 
-  it('test delete method', async () => {
-    categoryService.delete('1').then((result) => {
-      expect(result).toEqual({
-        id: 1,
-        name: 'women',
+  it('test update method', () => {
+    return ProdutService.update(1, {
+      name: 'updatedMobile',
+      price: 2000,
+      category_id: 1,
+    })
+      .then((result) => {
+        expect(result).toEqual({
+          id: 1,
+          name: 'updatedMobile',
+          price: 2000,
+          category_id: 1,
+        });
+      })
+      .catch((reject) => {
+        console.log(reject);
       });
-    });
+  });
+  it('test show method', () => {
+    return ProdutService.show('1')
+      .then((result) => {
+        expect(result).toEqual({
+          id: 1,
+          name: 'updatedMobile',
+          price: 2000,
+          category_id: 1,
+        });
+      })
+      .catch((reject) => {
+        console.log(reject);
+      });
+  });
+
+  it('test index method', () => {
+    return ProdutService.index()
+      .then((result) => {
+        expect(result).toEqual([
+          {
+            id: 1,
+            name: 'updatedMobile',
+            price: 2000,
+            category_id: 1,
+          },
+        ]);
+      })
+      .catch((reject) => {
+        console.log(reject);
+      });
+  });
+
+  it('test getByCategoryId method', () => {
+    return ProdutService.getProductsByCategory('1')
+      .then((result) => {
+        expect(result).toEqual({
+          id: 1,
+          name: 'kids',
+          price: 2000,
+          category_id: 1,
+        });
+      })
+      .catch((reject) => {
+        console.log(reject);
+      });
   });
 });
 
+//test category api
+
 //order test api
 describe('order api', () => {
-  it('test create method', async () => {
-    OrderService.create({
+  it('test create method', () => {
+    return OrderService.create({
       product_id: 1,
       product_qty: 1,
       user_id: 1,
       status: 'complete',
-    }).then((result) => {
-      expect(result).toEqual({
-        id: 1,
-        product_id: 1,
-        product_qty: 1,
-        user_id: 1,
-        status: 'complete',
-      });
-    });
-  });
-
-  it('test getCompleteOrders method', async () => {
-    OrderService.getCompleteOrders('1').then((result) => {
-      expect(result).toEqual([
-        {
+    })
+      .then((result) => {
+        expect(result).toEqual({
           id: 1,
           product_id: 1,
           product_qty: 1,
           user_id: 1,
           status: 'complete',
-        },
-      ]);
-    });
+        });
+      })
+      .catch((reject) => {
+        console.log(reject);
+      });
+  });
+  it('test getCompleteOrders method', () => {
+    return OrderService.getCompleteOrders('1')
+      .then((result) => {
+        expect(result).toEqual([
+          {
+            id: 1,
+            product_id: 1,
+            product_qty: 1,
+            user_id: 1,
+            status: 'complete',
+          },
+        ]);
+      })
+      .catch((reject) => {
+        console.log(reject);
+      });
   });
 
-  it('test show method', async () => {
-    OrderService.getCurrentOrders('1').then((result) => {
-      expect(result).toEqual([]);
-    });
+  it('test getCurrentOrders method', () => {
+    return OrderService.getCurrentOrders('1')
+      .then((result) => {
+        expect(result).toEqual([]);
+      })
+      .catch((reject) => {
+        console.log(reject);
+      });
   });
 });

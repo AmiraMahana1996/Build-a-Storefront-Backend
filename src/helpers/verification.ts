@@ -2,7 +2,7 @@ import * as argon2 from 'argon2';
 const passwordVerification = async (
   hashedPassword: string,
   password: string
-) => {
+): Promise<boolean> => {
   try {
     const hashingConfig = {
       parallelism: 1,

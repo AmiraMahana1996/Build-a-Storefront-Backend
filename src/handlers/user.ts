@@ -17,7 +17,7 @@ class Handler {
     this.initializeRoutes();
   }
 
-  static async index(req: express.Request, res: express.Response) {
+  static async index(req: express.Request, res: express.Response): Promise<void> {
     try {
       const users = await UserService.index();
       res.status(200).send(users);
@@ -27,7 +27,7 @@ class Handler {
     }
   }
 
-  static async register(req: express.Request, res: express.Response) {
+  static async register(req: express.Request, res: express.Response): Promise<void> {
     try {
       const hashed = await encryptPassword(req.body.password);
       req.body.password = hashed;
@@ -80,7 +80,7 @@ class Handler {
     }
   }
 
-  static async show(req: express.Request, res: express.Response) {
+  static async show(req: express.Request, res: express.Response): Promise<void> {
     try {
       console.log(`${req.body}`);
       const product = await UserService.show(req.params.id as string);

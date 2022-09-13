@@ -41,11 +41,11 @@ class ProductService {
       throw new Error(`Cann't create product : ${e}`);
     }
   }
-  static async update(id: string, product: IProduct): Promise<IProduct> {
+  static async update(id: number, product: IProduct): Promise<IProduct> {
     try {
       const connection = await Client.connect();
       const sql =
-        'UPDATE products SET name=$1,price=$2,category_id=$3 WHERE id=$4';
+        'UPDATE products SET name=$1,price=$2,category_id=$3 WHERE id=$4 RETURNING *';
       const result = await connection.query(sql, [
         removeSpaces(product.name),
         product.price,

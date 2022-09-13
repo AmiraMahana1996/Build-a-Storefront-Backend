@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS public.orders
     product_id integer NOT NULL,
     product_qty integer NOT NULL,
     user_id integer NOT NULL,
-    status character(255) COLLATE pg_catalog."default",
+    status text COLLATE pg_catalog."default",
     CONSTRAINT orders_product_id_fkey FOREIGN KEY (product_id)
         REFERENCES public.products (id) MATCH SIMPLE
         ON UPDATE NO ACTION

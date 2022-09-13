@@ -11,7 +11,7 @@ class Handler {
     this.initializeRoutes();
   }
 
-  static async index(req: express.Request, res: express.Response) {
+  static async index(req: express.Request, res: express.Response): Promise<void> {
     try {
       const categories = await CategoryService.index();
       res.status(200).json({
@@ -25,7 +25,7 @@ class Handler {
     }
   }
 
-  static async create(req: express.Request, res: express.Response) {
+  static async create(req: express.Request, res: express.Response): Promise<void> {
     try {
       console.log(`${req.body}`);
       const category = await CategoryService.create(req.body as ICategory);
@@ -40,7 +40,7 @@ class Handler {
     }
   }
 
-  static async show(req: express.Request, res: express.Response) {
+  static async show(req: express.Request, res: express.Response): Promise<void> {
     try {
       console.log(`${req.body}`);
       const category = await CategoryService.show(req.params.id as string);
@@ -54,25 +54,8 @@ class Handler {
       console.log(`create error: ${error}`);
     }
   }
-  static async update(req: express.Request, res: express.Response) {
-    try {
-      console.log(`${req.body}`);
-      const category = await CategoryService.update(
-        req.params.id as string,
-        req.body as ICategory
-      );
-      res.status(200).json({
-        status: 200,
-        message: 'success',
-        data: category,
-      });
-    } catch (err) {
-      const error = err as Error;
-      console.log(`update error: ${error}`);
-    }
-  }
 
-  static async delete(req: express.Request, res: express.Response) {
+  static async delete(req: express.Request, res: express.Response): Promise<void> {
     try {
       console.log(`${req.body}`);
       const category = await CategoryService.delete(req.params.id as string);
@@ -91,7 +74,7 @@ class Handler {
     this.router.get(`${this.path}/all`, authMiddelware, Handler.index);
     this.router.post(`${this.path}/create`, authMiddelware, Handler.create);
     this.router.get(`${this.path}/show/:id`, authMiddelware, Handler.show);
-    this.router.put(`${this.path}/update/:id`, authMiddelware, Handler.update);
+
     this.router.delete(
       `${this.path}/delete/:id`,
       authMiddelware,

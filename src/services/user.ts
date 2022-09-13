@@ -39,7 +39,7 @@ class UserService {
       connection.release();
       return result.rows[0];
     } catch (e) {
-      throw new Error(`Cann't create amira : ${e}`);
+      throw new Error(`Cann't create user : ${e}`);
     }
   }
   static async login(email: string, password: string): Promise<IUser> {

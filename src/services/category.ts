@@ -36,20 +36,7 @@ class CategoryService {
       throw new Error(`Cann't create product : ${e}`);
     }
   }
-  static async update(id: string, category: ICategory): Promise<ICategory> {
-    try {
-      const connection = await Client.connect();
-      const sql = 'UPDATE categories SET name=$1 WHERE id=$2';
-      const result = await connection.query(sql, [
-        removeSpaces(category.name),
-        id,
-      ]);
-      connection.release();
-      return result.rows[0];
-    } catch (e) {
-      throw new Error(`Cann't update product : ${e}`);
-    }
-  }
+
   static async delete(id: string): Promise<ICategory> {
     try {
       const connection = await Client.connect();

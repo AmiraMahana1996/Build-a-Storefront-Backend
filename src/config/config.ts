@@ -11,6 +11,8 @@ const {
   PEPPER,
   TOKEN_SECRET,
   PORT,
+  TEST_DB,
+  NODE_ENV,
 } = process.env;
 
 export default {
@@ -22,5 +24,6 @@ export default {
   secretToken: TOKEN_SECRET,
   postgresPort: POSTGRES_PORT,
   postgresPassword: POSTGRES_PASSWORD,
-  DB: POSTGRES_DB,
+  DB: NODE_ENV === 'dev' ? POSTGRES_DB : TEST_DB,
+  test: TEST_DB,
 };

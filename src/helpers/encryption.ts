@@ -1,6 +1,6 @@
 import * as argon2 from 'argon2';
 import * as crypto from 'crypto';
-const encryptPassword = (password: string) => {
+const encryptPassword = (password: string): unknown => {
   try {
     const hashingConfig = {
       parallelism: 1,

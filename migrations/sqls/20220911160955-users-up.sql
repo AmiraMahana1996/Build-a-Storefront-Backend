@@ -5,10 +5,10 @@
 CREATE TABLE IF NOT EXISTS public.users
 (
     id  SERIAL PRIMARY KEY,
-    firstname character(255) COLLATE pg_catalog."default",
-    lastname character(255) COLLATE pg_catalog."default",
-    password character(255) COLLATE pg_catalog."default",
-    email character(255) COLLATE pg_catalog."default",
+    firstname text COLLATE pg_catalog."default",
+    lastname text COLLATE pg_catalog."default",
+    password text COLLATE pg_catalog."default",
+    email text COLLATE pg_catalog."default",
     CONSTRAINT users_email_key UNIQUE (email)
  
 )

@@ -1,4 +1,4 @@
-const removeSpaces = (string: string) => {
+const removeSpaces = (string: string): unknown => {
   try {
     const returnedString = string.replace(/ /g, '');
     return returnedString.trim();
