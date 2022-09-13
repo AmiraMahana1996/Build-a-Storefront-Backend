@@ -1,6 +1,7 @@
 import express from 'express';
 import CategoryService from '../services/category';
 import ICategory from '../interfaces/category';
+import authMiddelware from '../middlewares/auth.middleware';
 class Handler {
   path: string;
   router: express.Router;
@@ -67,11 +68,11 @@ class Handler {
   }
 
   initializeRoutes() {
-    this.router.get(`${this.path}/all`, Handler.index);
-    this.router.post(`${this.path}/create`, Handler.create);
-    this.router.get(`${this.path}/show/:id`, Handler.show);
-    this.router.put(`${this.path}/update/:id`, Handler.update);
-    this.router.delete(`${this.path}/delete/:id`, Handler.delete);
+    this.router.get(`${this.path}/all`, authMiddelware, Handler.index);
+    this.router.post(`${this.path}/create`, authMiddelware, Handler.create);
+    this.router.get(`${this.path}/show/:id`, authMiddelware, Handler.show);
+    this.router.put(`${this.path}/update/:id`, authMiddelware, Handler.update);
+    this.router.delete(`${this.path}/delete/:id`, authMiddelware, Handler.delete);
   }
 }
 

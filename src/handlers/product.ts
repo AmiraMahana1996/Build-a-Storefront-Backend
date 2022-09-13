@@ -1,6 +1,7 @@
 import express from 'express';
 import ProdutService from '../services/product';
 import IProduct from '../interfaces/Product';
+import authMiddelware from '../middlewares/auth.middleware';
 class Handler {
   path: string;
   router: express.Router;
@@ -28,7 +29,11 @@ class Handler {
     try {
       console.log(`${req.body}`);
       const product = await ProdutService.create(req.body as IProduct);
-      res.status(200).send(product);
+      res.status(200).json({
+        status: 200,
+        message: "success",
+        data: product,
+      });
     } catch (err) {
       const error = err as Error;
       console.log(`create error: ${error}`);
@@ -56,7 +61,11 @@ class Handler {
         req.params.id as string,
         req.body as IProduct
       );
-      res.status(200).send(product);
+      res.status(200).json({
+        status: 200,
+        message: "success",
+        data: product,
+      });
     } catch (err) {
       const error = err as Error;
       console.log(`update error: ${error}`);
@@ -67,7 +76,11 @@ class Handler {
     try {
       console.log(`${req.body}`);
       const product = await ProdutService.delete(req.params.id as string);
-      res.status(200).send(product);
+      res.status(200).json({
+        status: 200,
+        message: "success",
+        data: product,
+      });
     } catch (err) {
       const error = err as Error;
       console.log(`delete error: ${error}`);
@@ -83,7 +96,11 @@ class Handler {
       const products = await ProdutService.getProductsByCategory(
         req.params.id as string
       );
-      res.status(200).send(products);
+      res.status(200).json({
+        status: 200,
+        message: "success",
+        data: products,
+      });
     } catch (err) {
       const error = err as Error;
       console.log(`delete error: ${error}`);
@@ -92,10 +109,10 @@ class Handler {
 
   initializeRoutes() {
     this.router.get(`${this.path}/all`, Handler.index);
-    this.router.post(`${this.path}/create`, Handler.create);
-    this.router.get(`${this.path}/show/:id`, Handler.show);
-    this.router.put(`${this.path}/update/:id`, Handler.update);
-    this.router.delete(`${this.path}/delete/:id`, Handler.delete);
+    this.router.post(`${this.path}/create`, authMiddelware, Handler.create);
+    this.router.get(`${this.path}/show/:id`, authMiddelware, Handler.show);
+    this.router.put(`${this.path}/update/:id`, authMiddelware, Handler.update);
+    this.router.delete(`${this.path}/delete/:id`, authMiddelware, Handler.delete);
     this.router.get(
       `${this.path}/by-category-id/:id`,
       Handler.getProductsByCategory

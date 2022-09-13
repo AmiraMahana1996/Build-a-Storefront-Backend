@@ -47,7 +47,7 @@ class Handler {
     res: express.Response
   ): Promise<void> {
     try {
-      const user = await UserService.login(req.body.email as string);
+      const user = await UserService.login(req.body.email as string, req.body.password as string);
       logger.info(user.password);
 
       //verify password
@@ -59,7 +59,6 @@ class Handler {
         if (isValidPassword) {
           //assign token to logged user
           const token = JWT.sign(user, config.secretToken);
-          localStorage.setItem(token, token);
           res.status(404).json({ status: 200, token: token });
         }
         {

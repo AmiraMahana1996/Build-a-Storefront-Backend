@@ -42,11 +42,11 @@ class UserService {
       throw new Error(`Cann't create amira : ${e}`);
     }
   }
-  static async login(email: string): Promise<IUser> {
+  static async login(email: string, password: string): Promise<IUser> {
     try {
       const connection = await Client.connect();
-      const sql = 'SELECT * FROM users WHERE email = $1';
-      const result = await connection.query(sql, [removeSpaces(email)]);
+      const sql = 'SELECT * FROM users WHERE email = $1 AND password = $2';
+      const result = await connection.query(sql, [removeSpaces(email), removeSpaces(password)]);
       connection.release();
       return result.rows[0];
     } catch (e) {

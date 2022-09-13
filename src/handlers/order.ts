@@ -1,6 +1,7 @@
 import express from 'express';
 import OrderService from '../services/order';
 import IOrder from '../interfaces/Order';
+import authMiddelware from '../middlewares/auth.middleware';
 class Handler {
   path: string;
   router: express.Router;
@@ -65,9 +66,9 @@ class Handler {
   }
 
   initializeRoutes() {
-    this.router.post(`${this.path}/create`, Handler.createOrder);
-    this.router.get(`${this.path}/complete/:id`, Handler.getCompletedOrders);
-    this.router.get(`${this.path}/current/:id`, Handler.getCurrentOrders);
+    this.router.post(`${this.path}/create`, authMiddelware, Handler.createOrder);
+    this.router.get(`${this.path}/complete/:id`, authMiddelware, Handler.getCompletedOrders);
+    this.router.get(`${this.path}/current/:id`, authMiddelware, Handler.getCurrentOrders);
   }
 }
 

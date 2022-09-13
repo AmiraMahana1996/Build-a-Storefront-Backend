@@ -14,13 +14,13 @@ class ProductService {
     }
   }
 
-  static async show(id: string): Promise<IProduct[]> {
+  static async show(id: string): Promise<IProduct> {
     try {
       const connection = await Client.connect();
       const sql = 'SELECT * FROM products WHERE id = ($1)';
       const result = await connection.query(sql, [removeSpaces(id)]);
       connection.release();
-      return result.rows;
+      return result.rows[0];
     } catch (e) {
       throw new Error(`Cann't show product : ${e}`);
     }
@@ -70,14 +70,14 @@ class ProductService {
     }
   }
 
-  static async getProductsByCategory(id: string): Promise<IProduct[]> {
+  static async getProductsByCategory(id: string): Promise<IProduct> {
     try {
       const connection = await Client.connect();
       const sql =
         'SELECT *FROM products p JOIN categories c ON c.id = p.category_id WHERE c.id = $1';
       const result = await connection.query(sql, [id]);
       connection.release();
-      return result.rows;
+      return result.rows[0];
     } catch (e) {
       throw new Error(`Cann't get products by category_id product : ${e}`);
     }

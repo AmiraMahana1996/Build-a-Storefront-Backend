@@ -8,12 +8,14 @@ import logger from './helpers/logger';
 import bodyParser from 'body-parser';
 dotenv.config();
 class App {
+
   app: express.Application;
   constructor(handlers: Array<unknown>) {
     this.app = express();
     Client.connect();
     this.initializeMiddleWares();
     this.initializeControllers(handlers);
+
   }
 
   listen() {

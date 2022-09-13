@@ -14,13 +14,13 @@ class CategoryService {
     }
   }
 
-  static async show(id: string): Promise<ICategory[]> {
+  static async show(id: string): Promise<ICategory> {
     try {
       const connection = await Client.connect();
       const sql = 'SELECT * FROM categories WHERE id = ($1)';
       const result = await connection.query(sql, [id]);
       connection.release();
-      return result.rows;
+      return result.rows[0];
     } catch (e) {
       throw new Error(`Cann't show product : ${e}`);
     }
@@ -50,7 +50,7 @@ class CategoryService {
       throw new Error(`Cann't update product : ${e}`);
     }
   }
-  static async delete(id: string): Promise<ICategory[]> {
+  static async delete(id: string): Promise<ICategory> {
     try {
       const connection = await Client.connect();
       const sql = 'DELETE FROM categories WHERE id = $1';
