@@ -4,7 +4,7 @@ import cors from 'cors';
 import Config from './config/config';
 import Client from './config/Client';
 
-import logger from 'morgan';
+import logger from './helpers/logger';
 import bodyParser from 'body-parser';
 dotenv.config();
 class App {
@@ -18,15 +18,19 @@ class App {
 
   listen() {
     this.app.listen(Config.port, () => {
-      logger.compile(`App listening on the port ${Config.port}`);
+      logger.info(`App listening on the port ${Config.port}`);
     });
   }
 
   initializeMiddleWares() {
     this.app.use(cors());
-    this.app.use(logger('dev'));
+
     this.app.use(bodyParser.json({ limit: '8mb' }));
     this.app.use(bodyParser.urlencoded({ extended: false }));
+    this.app.use((req, res, done) => {
+      logger.info(req.originalUrl);
+      done();
+    });
   }
 
   initializeControllers(handlers) {
@@ -35,10 +39,6 @@ class App {
     });
   }
 
-  static loggerMiddleware(request, response, next) {
-    logger.bind(`${request.method} ${request.path}`);
-    next();
-  }
 }
 
 export default App;

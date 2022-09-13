@@ -1,9 +1,11 @@
 import express from 'express';
 import UserService from '../services/user';
 import IUser from '../interfaces/User';
-import bcrypt from 'bcryptjs';
 import JWT from 'jsonwebtoken';
-import hashPasseord from '../helpers/encryption';
+import passwordVerification from '../helpers/verification'
+import encryptPassword from '../helpers/encryption'
+import logger from '../helpers/logger';
+import { request } from 'http';
 class Handler {
   path: string;
 
@@ -26,7 +28,11 @@ class Handler {
 
   static async register(req: express.Request, res: express.Response) {
     try {
-      // req.body.password = hashPasseord(req.body.password);
+      const hashed = await encryptPassword(req.body.password);
+      req.body.password = hashed
+      logger.info(req.body.password)
+      logger.info(hashed)
+
       const user = await UserService.register(req.body as IUser);
       res.status(200).send(user);
     } catch (err) {
@@ -34,14 +40,21 @@ class Handler {
       console.log(`create error: ${error}`);
     }
   }
-  static async login(
-    req: express.Request,
-    res: express.Response
-  ): Promise<void> {
-    try {
-      const user = await UserService.login(req.body as IUser);
 
-      res.status(200).send(user);
+
+  static async login(req: express.Request, res: express.Response): Promise<void> {
+    try {
+      const user = await UserService.login(req.body.email as string)
+      logger.info(user.password);
+      //verify password
+      const isValid = await passwordVerification(user.password, req.body.password)
+
+      logger.info(`invalid: ${isValid}`);
+
+
+
+
+
     } catch (err) {
       const error = err as Error;
       console.log(`create error: ${error}`);
@@ -63,7 +76,7 @@ class Handler {
     this.router.get(`${this.path}/all`, Handler.index);
     this.router.post(`${this.path}/register`, Handler.register);
     this.router.get(`${this.path}/show/:id`, Handler.show);
-    this.router.get(`${this.path}/login`, Handler.login);
+    this.router.post(`${this.path}/login`, Handler.login);
   }
 }
 

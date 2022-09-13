@@ -1,5 +1,6 @@
 import Client from '../config/Client';
 import ICategory from '../interfaces/category';
+import removeSpaces from '../helpers/removeSpaces'
 class CategoryService {
   static async index(): Promise<ICategory[]> {
     try {
@@ -28,7 +29,7 @@ class CategoryService {
     try {
       const connection = await Client.connect();
       const sql = 'INSERT INTO categories (name)VALUES( $1) RETURNING *;';
-      const result = await connection.query(sql, [category.name]);
+      const result = await connection.query(sql, [removeSpaces(category.name)]);
       connection.release();
       return result.rows[0];
     } catch (e) {
@@ -39,7 +40,7 @@ class CategoryService {
     try {
       const connection = await Client.connect();
       const sql = 'UPDATE categories SET name=$1 WHERE id=$2';
-      const result = await connection.query(sql, [category.name, id]);
+      const result = await connection.query(sql, [removeSpaces(category.name), id]);
       connection.release();
       return result.rows[0];
     } catch (e) {

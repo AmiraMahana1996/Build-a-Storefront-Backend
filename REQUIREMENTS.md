@@ -8,6 +8,13 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Products
 
+| Column      | type   |
+| ----------- | ------ |
+| id          | number |
+| name        | string |
+| price       | number |
+| category_id | number |
+
 - Index
 
 ```sh
@@ -98,6 +105,14 @@ GET /products/get_by_category_id/1
 
 #### Users
 
+| Column    | type   |
+| --------- | ------ |
+| id        | number |
+| firstname | string |
+| lastname  | string |
+| email     | string |
+| password  | string |
+
 - Index [token required]
 
 ```sh
@@ -172,8 +187,39 @@ POST users/create
 
 #### Orders
 
+| Column      | type   | Constrains |
+| ----------- | ------ | ---------- |
+| id          | number |
+| product_id  | number | FK         |
+| product_qty | number |
+| user_id     | number | FK         |
+| status      | string |
+
 - Current Order by user (args: user id)[token required]
 
+  ```sh
+  show current orders by user id
+  ```
+
+-endpoint
+GET /orders/current/1
+
+-returned data example:
+{
+"status": 200,
+"message": "success",
+"data": [
+{
+"id": 3,
+"product_id": 1,
+"product_qty": 20,
+"user_id": 2,
+"status": "complete"
+}
+]
+}
+
+````
 - Completed Orders by user (args: user id)[token required]
 
 ```sh
@@ -196,7 +242,14 @@ GET /orders/complete/2
         }
     ]
 }
-```
+````
+
+#### Categories
+
+| Column | type   |
+| ------ | ------ |
+| id     | number |
+| name   | string |
 
 ## Data Shapes
 

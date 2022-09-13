@@ -1,6 +1,6 @@
 import Client from '../config/Client';
 import IUser from '../interfaces/User';
-
+import removeSpaces from '../helpers/removeSpaces'
 class UserService {
   static async index(): Promise<IUser[]> {
     try {
@@ -14,43 +14,44 @@ class UserService {
     }
   }
 
-  static async show(id: string): Promise<IUser[]> {
+  static async show(id: string): Promise<IUser> {
     try {
       const connection = await Client.connect();
       const sql = 'SELECT * FROM users WHERE id = ($1)';
       const result = await connection.query(sql, [id]);
       connection.release();
-      return result.rows;
+      return result.rows[0];
     } catch (e) {
       throw new Error(`Cann't show users : ${e}`);
     }
   }
   static async register(user: IUser): Promise<IUser> {
     try {
+
       const connection = await Client.connect();
       const sql =
         'INSERT INTO users (firstname,lastname,password,email)VALUES( $1,$2,$3,$4) RETURNING *;';
       const result = await connection.query(sql, [
-        user.firstname,
-        user.lastname,
-        user.password,
-        user.email,
+        removeSpaces(user.firstname),
+        removeSpaces(user.lastname),
+        removeSpaces(user.password),
+        removeSpaces(user.email)
       ]);
       connection.release();
       return result.rows[0];
     } catch (e) {
-      throw new Error(`Cann't create user : ${e}`);
+      throw new Error(`Cann't create amira : ${e}`);
     }
   }
-  static async login(user: IUser): Promise<IUser> {
+  static async login(email: string): Promise<IUser> {
     try {
       const connection = await Client.connect();
-      const sql = 'SELECT * FROM users WHERE id = $1';
-      const result = await connection.query(sql, [user.id]);
+      const sql = 'SELECT * FROM users WHERE email = $1';
+      const result = await connection.query(sql, [removeSpaces(email)]);
       connection.release();
       return result.rows[0];
     } catch (e) {
-      throw new Error(`Cann't delete product : ${e}`);
+      throw new Error(`Cann't login user : ${e}`);
     }
   }
 }

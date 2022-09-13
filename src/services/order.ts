@@ -1,6 +1,6 @@
 import Client from '../config/Client';
 import IOrder from '../interfaces/Order';
-
+import removeSpaces from '../helpers/removeSpaces'
 class OrderService {
   static async create(order: IOrder): Promise<IOrder> {
     try {
@@ -11,7 +11,7 @@ class OrderService {
         order.product_id,
         order.product_qty,
         order.user_id,
-        order.status,
+        removeSpaces(order.status),
       ]);
       connection.release();
       return result.rows[0];

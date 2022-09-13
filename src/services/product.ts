@@ -1,5 +1,6 @@
 import Client from '../config/Client';
 import IProduct from '../interfaces/Product';
+import removeSpaces from '../helpers/removeSpaces'
 class ProductService {
   static async index(): Promise<IProduct[]> {
     try {
@@ -17,7 +18,7 @@ class ProductService {
     try {
       const connection = await Client.connect();
       const sql = 'SELECT * FROM products WHERE id = ($1)';
-      const result = await connection.query(sql, [id]);
+      const result = await connection.query(sql, [removeSpaces(id)]);
       connection.release();
       return result.rows;
     } catch (e) {
@@ -30,7 +31,7 @@ class ProductService {
       const sql =
         'INSERT INTO products (name,price,category_id)VALUES( $1,$2,$3) RETURNING *;';
       const result = await connection.query(sql, [
-        product.name,
+        removeSpaces(product.name),
         product.price,
         product.category_id,
       ]);
@@ -46,7 +47,7 @@ class ProductService {
       const sql =
         'UPDATE products SET name=$1,price=$2,category_id=$3 WHERE id=$4';
       const result = await connection.query(sql, [
-        product.name,
+        removeSpaces(product.name),
         product.price,
         product.category_id,
         id,
