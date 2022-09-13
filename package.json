@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "test": "npm run build && jasmine",
+    "test": "db-migrate --env=test up &&jasmine && db-migrate --env=test down",
     "build": "npx tsc",
     "start": "tsc && node dist/server.js",
     "dist": "tsc -p .",
@@ -14,6 +14,7 @@
     "tslint-fix": "tslint --fix --project ./tsconfig.json",
     "tslint": "tslint --project tsconfig.json",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
+    "db-migrate up": "db-migrate up --env='dev'",
     "compile-typescript": "npx tsc"
   },
   "keywords": [],

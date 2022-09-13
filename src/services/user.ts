@@ -46,7 +46,10 @@ class UserService {
     try {
       const connection = await Client.connect();
       const sql = 'SELECT * FROM users WHERE email = $1 AND password = $2';
-      const result = await connection.query(sql, [removeSpaces(email), removeSpaces(password)]);
+      const result = await connection.query(sql, [
+        removeSpaces(email),
+        removeSpaces(password),
+      ]);
       connection.release();
       return result.rows[0];
     } catch (e) {

@@ -66,9 +66,21 @@ class Handler {
   }
 
   initializeRoutes() {
-    this.router.post(`${this.path}/create`, authMiddelware, Handler.createOrder);
-    this.router.get(`${this.path}/complete/:id`, authMiddelware, Handler.getCompletedOrders);
-    this.router.get(`${this.path}/current/:id`, authMiddelware, Handler.getCurrentOrders);
+    this.router.post(
+      `${this.path}/create`,
+      authMiddelware,
+      Handler.createOrder
+    );
+    this.router.get(
+      `${this.path}/complete/:id`,
+      authMiddelware,
+      Handler.getCompletedOrders
+    );
+    this.router.get(
+      `${this.path}/current/:id`,
+      authMiddelware,
+      Handler.getCurrentOrders
+    );
   }
 }
 

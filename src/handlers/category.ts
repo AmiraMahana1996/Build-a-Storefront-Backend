@@ -14,7 +14,11 @@ class Handler {
   static async index(req: express.Request, res: express.Response) {
     try {
       const categories = await CategoryService.index();
-      res.status(200).send(categories);
+      res.status(200).json({
+        status: 200,
+        message: 'success',
+        data: categories,
+      });
     } catch (err) {
       const error = err as Error;
       console.log(`index error: ${error}`);
@@ -25,7 +29,11 @@ class Handler {
     try {
       console.log(`${req.body}`);
       const category = await CategoryService.create(req.body as ICategory);
-      res.status(200).send(category);
+      res.status(200).json({
+        status: 200,
+        message: 'success',
+        data: category,
+      });
     } catch (err) {
       const error = err as Error;
       console.log(`create error: ${error}`);
@@ -36,7 +44,11 @@ class Handler {
     try {
       console.log(`${req.body}`);
       const category = await CategoryService.show(req.params.id as string);
-      res.status(200).send(category);
+      res.status(200).json({
+        status: 200,
+        message: 'success',
+        data: category,
+      });
     } catch (err) {
       const error = err as Error;
       console.log(`create error: ${error}`);
@@ -49,7 +61,11 @@ class Handler {
         req.params.id as string,
         req.body as ICategory
       );
-      res.status(200).send(category);
+      res.status(200).json({
+        status: 200,
+        message: 'success',
+        data: category,
+      });
     } catch (err) {
       const error = err as Error;
       console.log(`update error: ${error}`);
@@ -60,7 +76,11 @@ class Handler {
     try {
       console.log(`${req.body}`);
       const category = await CategoryService.delete(req.params.id as string);
-      res.status(200).send(category);
+      res.status(200).json({
+        status: 200,
+        message: 'success',
+        data: category,
+      });
     } catch (err) {
       const error = err as Error;
       console.log(`delete error: ${error}`);
@@ -72,7 +92,11 @@ class Handler {
     this.router.post(`${this.path}/create`, authMiddelware, Handler.create);
     this.router.get(`${this.path}/show/:id`, authMiddelware, Handler.show);
     this.router.put(`${this.path}/update/:id`, authMiddelware, Handler.update);
-    this.router.delete(`${this.path}/delete/:id`, authMiddelware, Handler.delete);
+    this.router.delete(
+      `${this.path}/delete/:id`,
+      authMiddelware,
+      Handler.delete
+    );
   }
 }
 

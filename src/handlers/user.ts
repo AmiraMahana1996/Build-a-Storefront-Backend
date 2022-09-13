@@ -47,7 +47,10 @@ class Handler {
     res: express.Response
   ): Promise<void> {
     try {
-      const user = await UserService.login(req.body.email as string, req.body.password as string);
+      const user = await UserService.login(
+        req.body.email as string,
+        req.body.password as string
+      );
       logger.info(user.password);
 
       //verify password
@@ -64,7 +67,7 @@ class Handler {
         {
           res
             .status(404)
-            .json({ status: 404, message: 'your email or password invalid!' });
+            .json({ status: 401, message: 'Invalid email or password!' });
         }
       } else {
         res
@@ -81,7 +84,11 @@ class Handler {
     try {
       console.log(`${req.body}`);
       const product = await UserService.show(req.params.id as string);
-      res.status(200).send(product);
+      res.status(200).json({
+        status: 200,
+        message: 'success',
+        data: product,
+      });
     } catch (err) {
       const error = err as Error;
       console.log(`create error: ${error}`);

@@ -31,7 +31,7 @@ class Handler {
       const product = await ProdutService.create(req.body as IProduct);
       res.status(200).json({
         status: 200,
-        message: "success",
+        message: 'success',
         data: product,
       });
     } catch (err) {
@@ -63,7 +63,7 @@ class Handler {
       );
       res.status(200).json({
         status: 200,
-        message: "success",
+        message: 'success',
         data: product,
       });
     } catch (err) {
@@ -78,7 +78,7 @@ class Handler {
       const product = await ProdutService.delete(req.params.id as string);
       res.status(200).json({
         status: 200,
-        message: "success",
+        message: 'success',
         data: product,
       });
     } catch (err) {
@@ -98,7 +98,7 @@ class Handler {
       );
       res.status(200).json({
         status: 200,
-        message: "success",
+        message: 'success',
         data: products,
       });
     } catch (err) {
@@ -112,7 +112,11 @@ class Handler {
     this.router.post(`${this.path}/create`, authMiddelware, Handler.create);
     this.router.get(`${this.path}/show/:id`, authMiddelware, Handler.show);
     this.router.put(`${this.path}/update/:id`, authMiddelware, Handler.update);
-    this.router.delete(`${this.path}/delete/:id`, authMiddelware, Handler.delete);
+    this.router.delete(
+      `${this.path}/delete/:id`,
+      authMiddelware,
+      Handler.delete
+    );
     this.router.get(
       `${this.path}/by-category-id/:id`,
       Handler.getProductsByCategory
