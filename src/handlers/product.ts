@@ -124,7 +124,7 @@ class Handler {
 
   initializeRoutes() {
     this.router.get(`${this.path}/all`, Handler.index);
-    this.router.post(`${this.path}/create`, authMiddelware, Handler.create);
+    this.router.post(`${this.path}/create`, Handler.create);
     this.router.get(`${this.path}/show/:id`, authMiddelware, Handler.show);
     this.router.put(`${this.path}/update/:id`, authMiddelware, Handler.update);
     this.router.delete(

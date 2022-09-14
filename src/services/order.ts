@@ -1,8 +1,9 @@
 import Client from '../config/Client';
 import IOrder from '../interfaces/Order';
 import removeSpaces from '../helpers/removeSpaces';
+import IOrderTransaction from '../interfaces/order-transaction';
 class OrderService {
-  static async create(order: IOrder): Promise<IOrder> {
+  static async create(order: IOrder): Promise<IOrder | IOrderTransaction> {
     try {
       const connection = await Client.connect();
       const sql =

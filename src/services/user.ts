@@ -31,10 +31,10 @@ class UserService {
       const sql =
         'INSERT INTO users (firstname,lastname,password,email)VALUES( $1,$2,$3,$4) RETURNING *;';
       const result = await connection.query(sql, [
-        removeSpaces(user.firstname),
-        removeSpaces(user.lastname),
-        removeSpaces(user.password),
-        removeSpaces(user.email),
+        user.firstname,
+        user.lastname,
+        user.password,
+        user.email,
       ]);
       connection.release();
       return result.rows[0];

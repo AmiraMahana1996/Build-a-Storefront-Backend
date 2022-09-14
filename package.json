@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "test": "set NODE_ENV=test&&db-migrate up --env=test&&tsc&&db-migrate reset --env=test&&db-migrate up --env=test&&jasmine&",
+    "test": "set NODE_ENV=testDB&&db-migrate up --env=testDB&&db-migrate reset --env=testDB&&db-migrate up --env=testDB&&npm run build && jasmine&&db-migrate reset --env=testDB",
     "build": "npx tsc",
     "start": "tsc && node dist/server.js",
     "dist": "tsc -p .",

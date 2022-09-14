@@ -8,8 +8,9 @@ CREATE TABLE IF NOT EXISTS public.users
     firstname text COLLATE pg_catalog."default",
     lastname text COLLATE pg_catalog."default",
     password text COLLATE pg_catalog."default",
-    email text COLLATE pg_catalog."default",
-    CONSTRAINT users_email_key UNIQUE (email)
+    email text COLLATE pg_catalog."default"
+    
+
  
 )
 

@@ -1,7 +1,9 @@
 import express from 'express';
 import OrderService from '../services/order';
 import IOrder from '../interfaces/Order';
+import IOrderTransaction from '../interfaces/order-transaction';
 import authMiddelware from '../middlewares/auth.middleware';
+import IOrderTransactionService from '../services/order_transaction';
 class Handler {
   path: string;
   router: express.Router;
@@ -16,11 +18,22 @@ class Handler {
     res: express.Response
   ): Promise<void> {
     try {
-      const order = await OrderService.create(req.body as IOrder);
-      res.status(200).json({
-        status: 200,
-        message: 'success',
-        data: order,
+      await OrderService.create(req.body as IOrder).then((order) => {
+        const orderTransaction = {
+          product_id: order.product_id,
+          product_qty: order.product_qty,
+          order_id: order.id,
+          user_id: order.user_id,
+        };
+        IOrderTransactionService.create(
+          orderTransaction as IOrderTransaction
+        ).then((transaction) => {
+          res.status(200).json({
+            status: 200,
+            message: 'success',
+            data: transaction,
+          });
+        });
       });
     } catch (err) {
       const error = err as Error;
@@ -68,7 +81,7 @@ class Handler {
   initializeRoutes() {
     this.router.post(
       `${this.path}/create`,
-      authMiddelware,
+      // authMiddelware,
       Handler.createOrder
     );
     this.router.get(

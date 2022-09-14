@@ -41,7 +41,7 @@ class Handler {
       logger.info(hashed);
 
       const user = await UserService.register(req.body as IUser);
-      res.status(200).send(user);
+      res.status(200).json(user);
     } catch (err) {
       const error = err as Error;
       console.log(`create error: ${error}`);

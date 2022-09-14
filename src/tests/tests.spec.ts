@@ -1,13 +1,13 @@
 import supertest from 'supertest';
 import App from '../app';
 
-import ProdutService from '.././services/product';
-import UserService from '.././services/user';
-import OrderService from '.././services/order';
-import categoryService from '.././services/category';
+import ProdutService from '../services/product';
+import UserService from '../services/user';
+import OrderService from '../services/order';
+import categoryService from '../services/category';
 
-import productHandler from '.././handlers/product';
-import categorytHandler from '.././handlers/category';
+import productHandler from '../handlers/product';
+import categorytHandler from '../handlers/category';
 import userHandler from '../handlers/user';
 import orderHandler from '../handlers/order';
 const app = new App([
@@ -65,12 +65,12 @@ describe('user api', () => {
     return UserService.index().then((result) => {
       expect(result).toEqual([
         {
-          id: result[0].id,
-          firstname: result[0].firstname,
-          lastname: result[0].lastname,
-          password: result[0].password,
-          email: result[0].email,
-        },
+          id: 1,
+          firstname: 'amira',
+          lastname: 'ali',
+          password: 'ali',
+          email: 'ali@gmail.com',
+        }
       ]);
     });
   });
@@ -212,11 +212,12 @@ describe('order api', () => {
     })
       .then((result) => {
         expect(result).toEqual({
-          id: 1,
-          product_id: 1,
-          product_qty: 1,
-          user_id: 1,
-          status: 'complete',
+          "id": 1,
+          "product_id": 1,
+          "product_qty": 20,
+          "user_id": 1,
+          "order_id": 1
+
         });
       })
       .catch((reject) => {
