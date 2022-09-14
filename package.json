@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "test": "set NODE_ENV=testDB&&db-migrate up --env=testDB&&db-migrate reset --env=testDB&&db-migrate up --env=testDB&&npm run build && jasmine&&db-migrate reset --env=testDB",
+    "test": "set NODE_ENV=test_database&&db-migrate up --env=test_database&&npm run build&&jasmine",
     "build": "npx tsc",
     "start": "tsc && node dist/server.js",
     "dist": "tsc -p .",
@@ -15,6 +15,8 @@
     "tslint": "tslint --project tsconfig.json",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "db-migrate": "db-migrate up --env='dev'",
+    "db-migrate-create-test": "db-migrate db:create test_database",
+    "db-migrate-drop-test": "db-migrate db:drop test_database",
     "compile-typescript": "npx tsc"
   },
   "keywords": [],

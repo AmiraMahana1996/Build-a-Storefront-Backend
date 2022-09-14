@@ -25,5 +25,5 @@ export default {
   postgresPort: POSTGRES_PORT,
   postgresPassword: POSTGRES_PASSWORD,
   DB: NODE_ENV === 'dev' ? POSTGRES_DB : TEST_DB,
-  testDB: TEST_DB,
+  test_database: TEST_DB,
 };

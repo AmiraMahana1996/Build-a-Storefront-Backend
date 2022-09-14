@@ -26,9 +26,16 @@ npm run dev
 
 ## Run tests
 
-```sh
+````sh
+you should follow this steps to test
+1-run this script first to create a database
+ ```sh  "npm run db-migrate-create-test"```
+2-run this second script to test apis
+ ```sh  "npm run test"```
+3-run this second script to drop the database
+ ```sh  "npm run db-migrate-drop-test"```
 npm run test
-```
+````
 
 ## Run linting
 
