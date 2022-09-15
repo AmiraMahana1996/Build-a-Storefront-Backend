@@ -1,4 +1,4 @@
-<h1 align="center">Welcome Pos insert algorithim   👋</h1>
+<h1 align="center">Welcome to Store front-backend 👋</h1>
 <p>
   <a href="https://www.npmjs.com/package/processing Image" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/processing Image.svg">
@@ -8,7 +8,7 @@
   </a>
 </p>
 
-> For processing an image like resizing and so on..
+> For online store
 
 ### ✨ [Demo](localhost:3000)
 
